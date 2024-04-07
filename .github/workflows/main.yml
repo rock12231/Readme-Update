@@ -1,0 +1,36 @@
+name: Fetch Repositories
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Run every day at midnight
+
+jobs:
+  fetch-repos:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: '14'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Fetch repositories
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+        run: node index.js
+
+      - name: Commit and push changes
+        run: |
+          git config user.name "your-github-username"
+          git config user.email "your-email@example.com"
+          git add .
+          git commit -m "chore: update repositories"
+          git push
+        env:
+          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
