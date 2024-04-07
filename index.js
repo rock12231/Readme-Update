@@ -16,6 +16,11 @@ async function fetchRepos() {
         const publicRepos = response.data.filter(repo => !repo.private);
         const privateRepos = response.data.filter(repo => repo.private);
 
+        // dete data.json file if exists
+        if (fs.existsSync('data.json')) {
+            fs.unlinkSync('data.json');
+        }
+
         const data = JSON.stringify({ publicRepos, privateRepos }, null, 2);
         fs.writeFileSync('data.json', data);
         console.log('Repositories fetched and saved to data.json');
@@ -24,7 +29,8 @@ async function fetchRepos() {
         execSync('git pull origin master');
 
         // Commit changes to data.json
-        execSync('git add data.json');
+        // git add data.json --force
+        execSync('git add data.json --force');
         execSync('git commit -m "chore: update repositories in data.json"');
 
         // Update README file with current date and time
