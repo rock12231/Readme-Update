@@ -23,7 +23,7 @@ jobs:
       - name: Fetch repositories
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
-        run: node ./src/index.js
+        run: node index.js
 
       - name: Update README.md with current date and time
         run: |
