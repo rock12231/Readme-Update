@@ -25,11 +25,13 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: node index.js
 
+      - name: Pull changes from the remote repository
+        run: git pull origin master
+
       - name: Commit and push changes
         run: |
           git config user.name "rock12231"
           git config user.email "avinashkumar2rock@gmail.com"
-          git pull origin master
           git add .
           git commit -m "chore: update repositories"
           git push
