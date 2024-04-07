@@ -25,15 +25,40 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
         run: node index.js
 
-      - name: Pull changes from the remote repository
-        run: git pull origin master
+      - name: Update README.md with current date and time
+        run: |
+          const fs = require('fs');
+
+          const currentDate = new Date().toLocaleString();
+          const readmePath = './README.md';
+
+          fs.readFile(readmePath, 'utf8', (err, data) => {
+            if (err) {
+              console.error(err);
+              return;
+            }
+
+            const updatedReadme = data.replace(
+              /Last updated: (.*)/,
+              `Last updated: ${currentDate}`
+            );
+
+            fs.writeFile(readmePath, updatedReadme, 'utf8', (err) => {
+              if (err) {
+                console.error(err);
+                return;
+              }
+
+              console.log('README.md updated successfully');
+            });
+          });
 
       - name: Commit and push changes
         run: |
           git config user.name "rock12231"
           git config user.email "avinashkumar2rock@gmail.com"
           git add .
-          git commit -m "chore: update repositories"
+          git commit -m "chore: update repositories and README"
           git push
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
