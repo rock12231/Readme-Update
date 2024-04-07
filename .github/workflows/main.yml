@@ -3,7 +3,7 @@ name: Fetch Repositories
 on:
   workflow_dispatch:
   schedule:
-    - cron: '0 0 * * *'
+    - cron: '0 0 * * *' # Run every day at midnight
 
 jobs:
   fetch-repos:
@@ -29,6 +29,7 @@ jobs:
         run: |
           git config user.name "rock12231"
           git config user.email "avinashkumar2rock@gmail.com"
+          git pull origin master
           git add .
           git commit -m "chore: update repositories"
           git push
