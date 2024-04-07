@@ -1,5 +1,6 @@
 const axios = require('axios');
 const fs = require('fs');
+const { execSync } = require('child_process');
 
 // Replace 'YOUR_GITHUB_TOKEN' with your personal access token
 const token = 'YOUR_GITHUB_TOKEN';
@@ -20,12 +21,22 @@ async function fetchRepos() {
         console.log('Repositories fetched and saved to data.json');
 
         // Pull changes from the remote repository
-        const { execSync } = require('child_process');
         execSync('git pull origin master');
 
-        // Commit and push changes
-        execSync('git add .');
-        execSync('git commit -m "chore: update repositories"');
+        // Commit changes to data.json
+        execSync('git add data.json');
+        execSync('git commit -m "chore: update repositories in data.json"');
+
+        // Update README file with current date and time
+        const now = new Date();
+        const readmeContent = `Update DateTime: ${now.toLocaleString()}`;
+        fs.appendFileSync('README.md', readmeContent);
+
+        // Commit changes to README.md
+        execSync('git add README.md');
+        execSync('git commit -m "chore: update README.md with current date and time"');
+
+        // Push changes to the remote repository
         execSync('git push');
 
         console.log('Changes committed and pushed to the remote repository');
