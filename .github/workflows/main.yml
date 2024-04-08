@@ -26,23 +26,24 @@ jobs:
         run: node index.js
 
       - name: Update README.md with current date and time
-        run: node -e "const fs = require('fs'); \
-              const currentDate = new Date().toLocaleString(); \
-              const readmePath = './README.md'; \
-              fs.readFile(readmePath, 'utf8', (err, data) => { \
+        run: |
+          node -e "const fs = require('fs'); \
+            const currentDate = new Date().toLocaleString(); \
+            const readmePath = './README.md'; \
+            fs.readFile(readmePath, 'utf8', (err, data) => { \
+              if (err) { \
+                console.error(err); \
+                return; \
+              } \
+              const updatedReadme = data.replace(/Last updated: (.*)/, `Last updated: ${currentDate}`); \
+              fs.writeFile(readmePath, updatedReadme, 'utf8', (err) => { \
                 if (err) { \
                   console.error(err); \
                   return; \
-                  } \
-                const updatedReadme = data.replace(/Last updated: (.*)/, `Last updated: ${currentDate}`); \
-                fs.writeFile(readmePath, updatedReadme, 'utf8', (err) => { \
-                  if (err) { \
-                    console.error(err); \
-                    return; \
-                  } \
-                  console.log('README.md updated successfully'); \
-                }); \
-              });"
+                } \
+                console.log('README.md updated successfully'); \
+              }); \
+            });"
 
       - name: Commit and push changes
         run: |
