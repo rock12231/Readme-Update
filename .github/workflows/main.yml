@@ -26,9 +26,10 @@ jobs:
         run: node index.js
 
       - name: Update README.md with current date and time
-        run: update-readme.js
+      
       - name: Commit and push changes
         run: |
+          git pull
           git config user.name "rock12231"
           git config user.email "avinashkumar2rock@gmail.com"
           git add .
