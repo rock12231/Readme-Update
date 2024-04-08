@@ -35,7 +35,7 @@ jobs:
                 console.error(err); \
                 return; \
               } \
-              const updatedReadme = data.replace(/Last updated: (.*)/, `Last updated: ${currentDate}`); \
+              const updatedReadme = data.replace(/Last updated: (.*)/, \`Last updated: \${currentDate}\`); \
               fs.writeFile(readmePath, updatedReadme, 'utf8', (err) => { \
                 if (err) { \
                   console.error(err); \
@@ -44,7 +44,7 @@ jobs:
                 console.log('README.md updated successfully'); \
               }); \
             });"
-
+            
       - name: Commit and push changes
         run: |
           git config user.name "rock12231"
