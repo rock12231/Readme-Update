@@ -50,12 +50,12 @@ jobs:
           git config user.name "rock12231"
           git config user.email "avinashkumar2rock@gmail.com"
           git status
-          git branch
-          # check directory and files
-          ls -a
-          git checkout -b update-repositories
+          # take pull from master branch and then push to new branch with updated README.md
+          git checkout -b update-readme
+          git pull origin master
           git add .
-          git commit -m "chore: update repositories and README"
-          git push origin update-repositories
+          git commit -m "Update README.md"
+          git push origin update-readme
+          
         env:
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
