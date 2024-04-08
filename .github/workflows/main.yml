@@ -42,9 +42,10 @@ jobs:
                   return; \
                 } \
                 console.log('README.md updated successfully'); \
+                execSync('git add README.md && git commit -m "chore: update README.md" && git push', { stdio: 'inherit' }); \
               }); \
             });"
-            
+
       - name: Commit and push changes
         run: |
           git config user.name "rock12231"
