@@ -53,7 +53,6 @@ jobs:
           git branch
           # check directory and files
           ls -a
-          git branch update-repositories
           git checkout -b update-repositories
           git add .
           git commit -m "chore: update repositories and README"
