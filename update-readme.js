@@ -1,7 +1,7 @@
 const fs = require('fs');
 
           const currentDate = new Date().toLocaleString();
-          const readmePath = './README.md';
+          const readmePath = 'https://github.com/rock12231/Readme-Update/README.md';
 
           fs.readFile(readmePath, 'utf8', (err, data) => {
             if (err) {
