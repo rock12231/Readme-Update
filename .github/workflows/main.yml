@@ -53,6 +53,8 @@ jobs:
           git branch
           # check directory and files
           ls -a
+          # create new branch and push all code with updated README.md
+          git checkout -b update-repositories
           git add .
           git commit -m "chore: update repositories and README"
           git push
